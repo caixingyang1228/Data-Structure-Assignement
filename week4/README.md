@@ -8,7 +8,7 @@ The start code provide by [Aaron Hill](https://github.com/aaronxhill) can be fou
     const async = require('async');
     const dotenv = require('dotenv');
     dotenv.config();
-    
+
     // AWS RDS POSTGRESQL INSTANCE
     var db_credentials = new Object();
     db_credentials.user = 'xingyang';
@@ -16,17 +16,17 @@ The start code provide by [Aaron Hill](https://github.com/aaronxhill) can be fou
     db_credentials.database = 'aa';
     db_credentials.password = process.env.AWSRDS_PW;
     db_credentials.port = 5432;
-    
-    
+
+
     // Connect to the AWS RDS Postgres database
     const client = new Client(db_credentials);
     client.connect();
-    
-    // Sample SQL statement to create a table: 
+
+    // Sample SQL statement to create a table:
     var thisQuery = "CREATE TABLE aalocations (address varchar(100), lat double precision, long double precision);";
-    // Sample SQL statement to delete a table: 
-    // var thisQuery = "DROP TABLE aalocations;"; 
-    
+    // Sample SQL statement to delete a table:
+    // var thisQuery = "DROP TABLE aalocations;";
+
     client.query(thisQuery, (err, res) => {
         console.log(err, res);
         client.end();
@@ -50,7 +50,7 @@ Hierarchy: AA meeting -->(Type-->Address/Time)/Address/Time
     dotenv.config({path: '../week4/.env'});
     const fs = require('fs');
     var async = require('async');
-    
+
     // AWS RDS POSTGRESQL INSTANCE
     var db_credentials = new Object();
     db_credentials.user = 'xingyang';
@@ -58,20 +58,20 @@ Hierarchy: AA meeting -->(Type-->Address/Time)/Address/Time
     db_credentials.database = 'aa';
     db_credentials.password = process.env.AWSRDS_PW;
     db_credentials.port = 5432;
-    
-    
+
+
     // // Connect to the AWS RDS Postgres database
     // const client = new Client(db_credentials);
     // client.connect();
-    
-    // Sample SQL statement to create a table: 
+
+    // Sample SQL statement to create a table:
     // var thisQuery = "CREATE TABLE aalocations (address varchar(100), lat double precision, long double precision);";
-    // Sample SQL statement to delete a table: 
-    // var thisQuery = "DROP TABLE aalocations;"; 
-    
+    // Sample SQL statement to delete a table:
+    // var thisQuery = "DROP TABLE aalocations;";
+
     var rawAddresses = fs.readFileSync('../week4/data.json');
     var addressesForDb = JSON.parse(rawAddresses);
-    
+
     async.eachSeries(addressesForDb, function(value, callback) {
         const client = new Client(db_credentials);
         client.connect();
@@ -80,22 +80,23 @@ Hierarchy: AA meeting -->(Type-->Address/Time)/Address/Time
             console.log(err, res);
             client.end();
         });
-        setTimeout(callback, 1000); 
-    }); 
+        setTimeout(callback, 1000);
+    });
 
 ### Part Three: Populate your database
 
     // Connect to the AWS RDS Postgres database
     const client = new Client(db_credentials);
     client.connect();
-    
-    // Sample SQL statement to query the entire contents of a table: 
+
+    // Sample SQL statement to query the entire contents of a table:
     var thisQuery = "SELECT * FROM aalocations;";
-    
+
     client.query(thisQuery, (err, res) => {
         console.log(err, res.rows);
         client.end();
     });
+    
 ### Part Four: Check your work
 
     null [ { address: '252 W 46TH ST New York NY ',
