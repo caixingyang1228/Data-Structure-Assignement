@@ -8,7 +8,7 @@ const dotenv = require('dotenv'); // npm install dotenv
 dotenv.config();
 const apiKey = process.env.TAMU_KEY;
 
-// Read raw address data from a new JSON file
+// Read address data from a new JSON file
 var rawaddress = fs.readFileSync('../Week3/m04.json');
 rawaddress = JSON.parse(rawaddress);
 
@@ -34,8 +34,15 @@ async.eachSeries(addresses, function(value, callback) {
         else {
             var tamuGeo = JSON.parse(body);
             console.log(tamuGeo['FeatureMatchingResultType']);
-            meetingsData.push(tamuGeo);
+            // meetingsData.push(tamuGeo);
         }
+            
+            var reduction = {
+                streetaddress: tamuGeo['InputAddress'],
+                latitude: tamuGeo['OutputGeocodes'][0]['OutputGeocode']['Latitude'],
+                longitude: tamuGeo['OutputGeocodes'][0]['OutputGeocode']['Longitude'],
+            };
+        meetingsData.push(reduction);
     });
     setTimeout(callback, 2000);
 }, function() {
