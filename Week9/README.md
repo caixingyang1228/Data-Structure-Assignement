@@ -1,3 +1,4 @@
+
 1. Create a table with PostgreSQL  
 
  Create two dependencies i.e. pg and dotenv ; Connect it to the AWS RDS Postgres database  
@@ -9,7 +10,7 @@ var thisQuery = [];
 thisQuery +="CREATE TABLE tempsensor (temperature double precision, time timestamp DEFAULT current_timestamp);";
 
 ```
-
+![enter image description here](https://github.com/caixingyang1228/Data-Structure-Assignement/blob/master/Week9/temp.png?raw=true)
 2. Insert values using PM2 Runtime  
 Using  [PM2 Runtime](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/), which is a process manager for Node.js. To install it, run:  
 `npm install pm2 -g`
@@ -43,4 +44,6 @@ var tempData = function() {
 
 ```
 setInterval(tempData, 300000);
+```
+
 ```
